@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import Post
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView
+from django.views.generic import ListView,DetailView
 
 @login_required
 def home(request):
@@ -17,6 +17,9 @@ class PostListView(ListView):
     template_name = 'blog/home.html' # <app>/<model>_<viewtype>.html
     context_object_name = 'posts'
     ordering = ['-date_posted']
+
+class PostDetailView(DetailView):
+    model = Post
 
 
 
