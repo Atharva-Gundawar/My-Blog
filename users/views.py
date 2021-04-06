@@ -22,20 +22,22 @@ def profile(request):
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
-        
-
+        user = request.user
+        user_email = request.user.email
+        profile_url = request.user.profile.image
         if u_form.is_valid() and p_form.is_valid():
-            print(request.user)
-            print(u_form.cleaned_data['username'])
-            if request.user.username == u_form.cleaned_data['username'] and request.user.email == u_form.cleaned_data['email']:
-                print('not yay')
-                return redirect('profile')
-            else:
-                u_form.save()
-                print('yay')
-                p_form.save()
-                messages.success(request, f'Your account has been updated!')
-                return redirect('profile')
+            # if (str(user) == str(u_form.cleaned_data['username'])) and (str(user_email) == str(u_form.cleaned_data['email'])):
+            #     return redirect('profile')
+            # else:
+            #     u_form.save()
+            #     p_form.save()
+            #     messages.success(request, f'Your account has been updated!')
+            #     return redirect('profile')
+            u_form.save()
+            p_form.save()
+            messages.success(request, f'Your account has been updated!')
+            return redirect('profile')
+            
     else:
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
