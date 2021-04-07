@@ -6,7 +6,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.views.generic import (ListView,
                                     DetailView,
                                     CreateView,
-                                    UpdateView
+                                    UpdateView,
+                                    DeleteView
 )
 from django.contrib.auth.models import User
 
@@ -48,6 +49,12 @@ class PostUpdateView(LoginRequiredMixin,UserPassesTestMixin, UpdateView):
         post = self.get_object()
         return (post.author == self.request.user)# or (self.request.user == User.objects.get(username="atharva"))
     
+class PostDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
+    model = Post
+    success_url = '/'
+    def test_func(self):
+        post = self.get_object()
+        return (post.author == self.request.user)# or (self.request.user == User.objects.get(username="atharva"))
     
 
 def about(request):
