@@ -1,0 +1,7 @@
+
+pathlib==1.0.1
+os-sys==2.1.4
+os-win==5.4.0
+python-dotenv==0.17.0
+Django==3.2
+Pillow==8.2.0
